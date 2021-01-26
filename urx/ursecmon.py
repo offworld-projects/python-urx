@@ -239,7 +239,7 @@ class SecondaryMonitor(Thread):
         self._dictLock = Lock()
         self.host = host
         secondary_port = 30002    # Secondary client interface on Universal Robots
-        self._s_secondary = socket.create_connection((self.host, secondary_port), timeout=0.5)
+        self._s_secondary = socket.create_connection((self.host, secondary_port), timeout=5.0)
         self._prog_queue = []
         self._prog_queue_lock = Lock()
         self._dataqueue = bytes()
@@ -302,7 +302,7 @@ class SecondaryMonitor(Thread):
             if self._parser.version >= (3, 0):
                 rmode = 7
 
-            if self._dict["RobotModeData"]["robotMode"] == rmode \
+            if self._dict["RobotModeData"]["robotMode"] == 7 \
                     and self._dict["RobotModeData"]["isRealRobotEnabled"] is True \
                     and self._dict["RobotModeData"]["isEmergencyStopped"] is False \
                     and self._dict["RobotModeData"]["isSecurityStopped"] is False \
